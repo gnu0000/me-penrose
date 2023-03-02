@@ -20,7 +20,8 @@ export default class Point {
       return this;
    }
 
-   Copy() {
+   // returns a new point
+   Clone() {
       return new Point(this.x, this.y);
    }
 
@@ -111,16 +112,14 @@ export default class Point {
       return this;
    }
 
-   Interpolate(x, y, ammt) {
+   InterpolateTo(x, y, ammt) {
       this._params(x,y);
       if (typeof x == "object") ammt = y;
 
       let dx = (this.xParam - this.x) * ammt;
       let dy = (this.yParam - this.y) * ammt;
-      let newp = new Point(this);
-      return newp.Offset(dx, dy);
+      return this.Offset(dx, dy);
    }
-
       
 
    // not a true distance, this needs to be fast
@@ -138,15 +137,16 @@ export default class Point {
    }
    
 
+   // not a chain! - returns a new point
    Diff(point1, point2) {
       return new Point(point1.x-point2.x, point1.y-point2.y);
    }
 
 
+   // not a chain! - returns a new point
    Add(point1, point2) {
       return new Point(point1.x+point2.x, point1.y+point2.y);
    }
-
 
 
    AsString(label) {
@@ -154,7 +154,6 @@ export default class Point {
       str += "["+ Math.floor(this.x*1000)/1000 + "," + Math.floor(this.y*1000)/1000 + "]";
       return str;
    }
-
 
    // allow params to be (x,y) or (point)
    _params(x,y) {
