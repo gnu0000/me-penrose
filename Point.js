@@ -1,18 +1,20 @@
 "use strict";
 
-// describe ...
-//    chaining API
-//
+// a simple Point class with a chaining API
 //
 // Craig Fitzgerald
 //
-
+// note: all methods that take x,y params may alternatively take a Point instead
+// ex:
+//    let pt1 = new Point(10,20);
+//    let pt2 = new Point(pt1);
+//
 
 export default class Point {
    constructor(x,y) {
       this.Set(x,y);
    };
-                    //(point) ok
+   
    Set(x,y) {
       this._params(x,y);
       this.x = this.xParam; 
@@ -20,7 +22,6 @@ export default class Point {
       return this;
    }
 
-   // returns a new point
    Clone() {
       return new Point(this.x, this.y);
    }
@@ -39,7 +40,6 @@ export default class Point {
       return this;
    }
 
-                    //(point) ok
    Offset(x,y) {
       this._params(x,y);
       this.x += this.xParam;
@@ -47,7 +47,6 @@ export default class Point {
       return this;
    }
 
-                    //(point) ok
    UnOffset(x,y) {
       this._params(x,y);
       this.x -= this.xParam;
@@ -55,13 +54,11 @@ export default class Point {
       return this;
    }
 
-   
    FlipYAxis(ySize) {
       this.y = ySize - this.y;
       return this;
    }
 
-                    //(point) ok
    Min(x,y) {
       this._params(x,y);
       this.x = Math.min(this.x, this.xParam);
@@ -69,7 +66,6 @@ export default class Point {
       return this;
    }
       
-                    //(point) ok
    Max(x,y) {
       this._params(x,y);
       this.x = Math.max(this.x, this.xParam);
@@ -77,13 +73,11 @@ export default class Point {
       return this;
    }
 
-
    Range(val) {
       this.x = Math.min(this.x, val);
       this.y = Math.max(this.y, val);
       return this;
    }
-
 
    Round(precision) {
       this.x = Math.floor(this.x * precision + 0.5) / precision;
@@ -121,7 +115,6 @@ export default class Point {
       return this.Offset(dx, dy);
    }
       
-
    // not a true distance, this needs to be fast
    IsCloseTo(x, y, distance) {
 
@@ -136,19 +129,6 @@ export default class Point {
               ? 1 : 0);
    }
    
-
-   // not a chain! - returns a new point
-   Diff(point1, point2) {
-      return new Point(point1.x-point2.x, point1.y-point2.y);
-   }
-
-
-   // not a chain! - returns a new point
-   Add(point1, point2) {
-      return new Point(point1.x+point2.x, point1.y+point2.y);
-   }
-
-
    AsString(label) {
       var str = (arguments.length > 0 ? label + ":" : "");
       str += "["+ Math.floor(this.x*1000)/1000 + "," + Math.floor(this.y*1000)/1000 + "]";
